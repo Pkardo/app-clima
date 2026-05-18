@@ -9,20 +9,32 @@ function App() {
   const [erro, setErro] = useState('')
 
   async function dadosCordenadas() {
-    try {
+    try { // O código abaixo recebe o nome do local e retorna dados de latitude e longitude]
       if (local.trim()) {
         const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${local}&count=1&language=pt`)
-        console.log(response)
         const dados = await response.json()
+
+        if (!dados.results || dados.results.length === 0) {
+          setErro('O Local digitado não existe.')
+          setClima(null)
+          return
+        }
+
+        setErro('')
         return dados
       }
+      //Tratamento de erro se o input for vazio
       else {
-        setErro('Ocorreu um erro.')
+        setErro('Digite algo no campo de texto.')
+        setClima(null)
+        return
       }
     }
+    //Tratamento de erro de requisição
     catch (erro) {
       console.log('erro', erro)
       setErro('Não foi possivel carregar os dados. Tente novamente')
+      return
     }
   }
 
@@ -33,11 +45,25 @@ function App() {
 
     const cordenadas = resposta.results[0]
 
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cordenadas.latitude}&longitude=${cordenadas.longitude}&current=temperature_2m&timezone=auto`)
-    const dados = await response.json()
-    console.log(dados)
+    try {
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cordenadas.latitude}&longitude=${cordenadas.longitude}&current=temperature_2m&timezone=auto`)
+      const dados = await response.json()
+      console.log(dados)
+      const listaObj = {
+        name: cordenadas.name,
+        temp: dados.current.temperature_2m,
+        zone: dados.timezone,
+      }
+      setClima(listaObj)
+    }
+    catch (erro) {
+      console.log('erro', erro)
+      setErro('Não foi possivel carregar os dados. Tente novamente')
+      return
+    }
+    
+    setLocal('') //Limpa o input após buscar os dados
   }
-
 
   return (
     <>
@@ -51,9 +77,16 @@ function App() {
           <button onClick={ReceberDados}>Buscar</button>
         </div>
 
+        {erro ? <p className='erro'>{erro}</p> : ''}
         <div className='resultado'>
-          {erro? <p className='erro'>{erro}</p> : ''}
 
+          {clima ?
+            <>
+              <p>Local: {clima.name}</p>
+              <p>Temperatura: {clima.temp}</p>
+              <p>Local: {clima.zone}</p>
+            </>
+            : null}
         </div>
 
       </div>
