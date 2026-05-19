@@ -15,8 +15,9 @@ function App() {
         const dados = await response.json()
 
         if (!dados.results || dados.results.length === 0) {
-          setErro('O Local digitado não existe.')
+          setErro('O Local digitado não existe')
           setClima(null)
+          setLocal('')
           return
         }
 
@@ -25,7 +26,7 @@ function App() {
       }
       //Tratamento de erro se o input for vazio
       else {
-        setErro('Digite algo no campo de texto.')
+        setErro('Digite algo no campo de texto')
         setClima(null)
         return
       }
@@ -33,7 +34,7 @@ function App() {
     //Tratamento de erro de requisição
     catch (erro) {
       console.log('erro', erro)
-      setErro('Não foi possivel carregar os dados. Tente novamente')
+      setErro('Não foi possivel carregar os dados. Tente novamente!')
       return
     }
   }
@@ -58,7 +59,7 @@ function App() {
     }
     catch (erro) {
       console.log('erro', erro)
-      setErro('Não foi possivel carregar os dados. Tente novamente')
+      setErro('Não foi possivel carregar os dados. Tente novamente!')
       return
     }
     
@@ -80,11 +81,10 @@ function App() {
         {erro ? <p className='erro'>{erro}</p> : ''}
         <div className='resultado'>
 
-          <h2>Teste</h2>
           {clima ?
             <>
               <p>Local: {clima.name}</p>
-              <p>Temperatura: {clima.temp}</p>
+              <p>Temperatura: {clima.temp}°</p>
               <p>Local: {clima.zone}</p>
             </>
             : null}
