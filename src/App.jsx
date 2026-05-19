@@ -80,6 +80,7 @@ function App() {
         {erro ? <p className='erro'>{erro}</p> : ''}
         <div className='resultado'>
 
+          <h2>Teste</h2>
           {clima ?
             <>
               <p>Local: {clima.name}</p>
