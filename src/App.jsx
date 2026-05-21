@@ -67,9 +67,9 @@ function App() {
     setLocal('') //Limpa o input após buscar os dados
   }
 
-  function AplicarImg({ temp }) {
+  function AplicarAnimacao({ temp }) {
 
-    if (!temp) return null
+    if (temp == null) return null
 
     if (temp <= 20) {
       return (
@@ -99,7 +99,7 @@ function App() {
   return (
     <>
     
-      <AplicarImg temp={clima?.temp} />
+      <AplicarAnimacao temp={clima?.temp} />
 
       <div id='container'>
 
