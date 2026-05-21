@@ -7,14 +7,15 @@ function App() {
   const [local, setLocal] = useState('')
   const [clima, setClima] = useState(null)
   const [erro, setErro] = useState('')
+  
 
   async function dadosCordenadas() {
-    try { // O código abaixo recebe o nome do local e retorna dados de latitude e longitude]
+    try { // O código abaixo recebe o nome do local e retorna dados de latitude e longitude
       if (local.trim()) {
         const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${local}&count=1&language=pt`)
         const dados = await response.json()
 
-        if (!dados.results || dados.results.length === 0) {
+        if (!dados.results || dados.results.length === 0) {//Verifica se results retorna um local existente
           setErro('O Local digitado não existe')
           setClima(null)
           setLocal('')
@@ -42,15 +43,15 @@ function App() {
   async function ReceberDados() {
     const resposta = await dadosCordenadas()
 
-    if (!resposta) return
+    if (!resposta) return //Tratamento se resposta não retornar algum dado
 
     const cordenadas = resposta.results[0]
 
-    try {
+    try { // O código abaixo recebe a latitude e longitude e retorna od dados necessários
       const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cordenadas.latitude}&longitude=${cordenadas.longitude}&current=temperature_2m&timezone=auto`)
       const dados = await response.json()
-      console.log(dados)
-      const listaObj = {
+
+      const listaObj = { //Objeto com os dados que serão utlizados na renderização
         name: cordenadas.name,
         temp: dados.current.temperature_2m,
         zone: dados.timezone,
@@ -62,12 +63,44 @@ function App() {
       setErro('Não foi possivel carregar os dados. Tente novamente!')
       return
     }
-    
+
     setLocal('') //Limpa o input após buscar os dados
   }
 
+  function AplicarImg({ temp }) {
+
+    if (!temp) return null
+
+    if (temp <= 20) {
+      return (
+        <div className="geada">
+          <span className="floco"></span>
+          <span className="floco"></span>
+          <span className="floco"></span>
+          <span className="floco"></span>
+          <span className="floco"></span>
+          <span className="floco"></span>
+        </div>
+      )
+    }
+
+    if (temp >= 30) {
+      return (
+        <>
+          <div className="sol"></div>
+          <div className="raio"></div>
+        </>
+      )
+    }
+    return null
+  }
+
+  //Área de renderização
   return (
     <>
+    
+      <AplicarImg temp={clima?.temp} />
+
       <div id='container'>
 
         <div className='area-pesquisa'>
