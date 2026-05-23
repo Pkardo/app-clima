@@ -54,7 +54,7 @@ function App() {
       const listaObj = { //Objeto com os dados que serão utlizados na renderização
         name: cordenadas.name,
         temp: dados.current.temperature_2m,
-        zone: dados.timezone,
+        zone: cordenadas.admin1,
       }
       setClima(listaObj)
     }
@@ -116,7 +116,7 @@ function App() {
 
           {clima ?
             <>
-              <p>Local: {clima.name}</p>
+              <p>Nome {clima.name}</p>
               <p>Temperatura: {clima.temp}°</p>
               <p>Local: {clima.zone}</p>
             </>
