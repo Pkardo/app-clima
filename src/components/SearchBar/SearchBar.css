@@ -1,0 +1,65 @@
+.area-pesquisa {
+    background: rgba(255, 255, 255, 0.15);
+
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 20px;
+    padding: 10px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.area-pesquisa img {
+    height: 100px;
+    width: 100px;
+
+    object-fit: cover;
+}
+
+.area-pesquisa input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 15px;
+
+    border: none;
+    outline: none;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    font-size: 1rem;
+
+    transition: 0.3s;
+}
+
+.area-pesquisa input:focus {
+    background: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.area-pesquisa button {
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+
+    cursor: pointer;
+
+    background: #1f3cff;
+    color: white;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.area-pesquisa button:hover {
+    transform: scale(1.05);
+
+    background: #1028c7;
+}

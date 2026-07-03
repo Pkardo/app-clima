@@ -1,0 +1,37 @@
+.erro {
+    position: fixed;
+
+    top: 20%;
+    left: 50%;
+
+    transform: translate(-50%) scale(1);
+
+    background: #ff3b3b;
+    color: white;
+
+    padding: 25px 40px;
+
+    border-radius: 20px;
+
+    font-size: clamp(1rem, 3vw, 2rem);
+    
+    font-weight: bold;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+    animation: crescer 0.3s ease forwards;
+}
+
+@keyframes crescer {
+    from {
+        transform: translate(-50%) scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%) scale(1);
+        opacity: 1;
+    }
+}
