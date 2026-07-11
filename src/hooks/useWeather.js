@@ -13,13 +13,13 @@ export function useWeather() {
     async function buscarCidade() {
 
         setIsLoading(true)
-        
+
         if (!local.trim()) {
             setClima(null);
             setTimeout(() => {
                 setErro("Digite uma cidade");
                 setIsLoading(false);
-            }, 1000)
+            }, 2000)
             return;
         }
 

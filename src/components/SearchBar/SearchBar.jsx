@@ -9,6 +9,11 @@ function SearchBar({ local, alterarLocal, buscarCidade }) {
             <input type="text"
                 value={local}
                 onChange={(e) => alterarLocal(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        buscarCidade();
+                    }
+                }}
             />
 
             <button onClick={buscarCidade}>Buscar</button>
