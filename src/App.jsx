@@ -4,6 +4,7 @@ import SearchBar from "./components/SearchBar/SearchBar"
 import WeatherCard from "./components/Weather/WeatherCard"
 import Animation from "./components/Animation/Animation"
 import ErrorMensagem from "./components/ErrorMessage/ErrorMessage"
+import Loading from "./components/Loading/LoadingCard"
 
 import { useWeather } from "./hooks/useWeather";
 
@@ -14,6 +15,7 @@ function App() {
     clima,
     erro,
     buscarCidade,
+    isLoading
   } = useWeather();
 
   //Área de renderização
@@ -28,6 +30,10 @@ function App() {
 
       <WeatherCard
         clima={clima}
+      />
+
+      <Loading
+      isLoading={isLoading}
       />
 
       <Animation

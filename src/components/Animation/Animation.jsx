@@ -28,4 +28,5 @@ function AplicarAnimacao({ temp }) {
     return null
 }
 
+
 export default AplicarAnimacao;

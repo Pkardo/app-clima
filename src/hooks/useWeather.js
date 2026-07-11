@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     buscarCordenadas,
     buscarClima
@@ -7,16 +7,24 @@ import {
 export function useWeather() {
     const [local, setLocal] = useState('');
     const [clima, setClima] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [erro, setErro] = useState('');
 
     async function buscarCidade() {
 
+        setIsLoading(true)
+        
         if (!local.trim()) {
-            setErro("Digite uma cidade");
             setClima(null);
+            setTimeout(() => {
+                setErro("Digite uma cidade");
+                setIsLoading(false);
+            }, 1000)
             return;
         }
+
         try {
+
             const response = await buscarCordenadas(local);
 
             if (!response.results || response.results.length === 0) {
@@ -48,6 +56,10 @@ export function useWeather() {
             setClima(null);
             setLocal('');
         }
+
+        finally {
+            setIsLoading(false)
+        }
     }
 
     function alterarLocal(valor) {
@@ -59,6 +71,7 @@ export function useWeather() {
         alterarLocal,
         erro,
         clima,
-        buscarCidade
+        buscarCidade,
+        isLoading
     }
 }
