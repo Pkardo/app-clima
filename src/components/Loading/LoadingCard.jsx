@@ -6,7 +6,6 @@ function Loading({ isLoading }) {
     if (isLoading) {
         return (
             <div className="container">
-                <img src={LoaderGift} alt="" />
                 <p>Carregando dados..</p>
             </div>
         )
